@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>gamer</title>
+		<link type="icon" href="mood.gif">
+		<style>
+			body {
+				margin: 0px;    
+				overflow: clip;
+				background: #222;
+				color: white;
+				font-family: monospace;
+				font-size: 20px;
+				user-select: none;
+			}
+			input {
+				all: unset;
+				display: inline-block;
+				background: black;
+				border: 2px solid gray;
+				border-radius: 10px;
+			}
+			input[type="range"]{
+      	-webkit-appearance: none;
+				height: 15px;
+				overflow: hidden;
+			}
+	    input[type='button']{
+				cursor: pointer;
+			}
+	    input[type='range']::-webkit-slider-thumb {
+	      cursor: ew-resize;
+				background: #00f;
+				width: 15px;
+				border-radius: 10px;
+				height: 15px;
+      	-webkit-appearance: none;
+	      box-shadow: -85px 0 0 80px #6af;
+	    }
+			input, span {
+				float: left;
+				position: relative;
+				z-index: 100;
+			}
+			canvas {
+				position: fixed;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<span>inflation:</span>
+		<input type="range" min="0" max="1" step="0.1" id="inflate">
+		<span id="v1"></span><br>
+		<span>amount:</span>
+		<input type="range" min="3" max="50" step="1" id="amount">
+		<span id="v2"></span><br>
+		<span>radius:</span>
+		<input type="range" min="30" max="70" step="5" id="radius">
+		<span id="v3"></span><br>
+		<span>stretch:</span>
+		<input type="range" min="0" max="1" step="0.1" id="stretch">
+		<span id="v4"></span><br>
+		<input type="button" value="reset" onclick="ge.stop();ge.start();">
+		<canvas></canvas>
+	</body>
+	
+	<script defer src="head.js"></script>
+	<script defer src="game.js"></script>
+</html>
