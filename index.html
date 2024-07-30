@@ -1,41 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>geodebreaker's nicknacks</title>
-		<style>
-			body {
-		    margin: 20px;
-		    font-size: 20px;
-			}
-			a {
-				font-size: 30px;
-			}
-			p {
-				margin: 0px;
-				font-size: 20px;
-			}
-			div {
-		    height: 60px;
-		    padding: 10px;
-		    width: 500px;
-		    border: 1px solid black;
-		    margin-bottom: 10px;
-			}
-		</style>
+		<title>gamer</title>
+		<link rel="icon" href="../pic/mood.gif">
+		<link rel="stylesheet" href="../LIB/style.css">
 	</head>
+	
 	<body>
-		<h1>geodebreaker's nicknacks</h1>
-		<div>
-			<a href="blob/">blob</a><br>
-			<p>soft body blob</p>
-		</div>
-		<div>
-			<a href="picsorter/">picsorter</a><br>
-			<p>cuts up a picture and sorts it</p>
-		</div>
-		<div>
-			<a href="pogam/">raycaster</a><br>
-			<p>a doom like raycaster cause funny</p>
-		</div>
+		<span id="fps"></span><br>
+		<span id="desc"></span>
+		<input type="button" value="reset" onclick="ge.restart();" id="reset">
+		<canvas></canvas>
 	</body>
+	
+	<script defer src="../LIB/head.js"></script>
+	<script defer src="game.js"></script>
 </html>
