@@ -52,9 +52,9 @@ ge.stop = () => {
 	clearInterval(ge.int);
 };
 
-ge.loadpic = async (filename, name) => {
+ge.loadpic = async (filename, name, ext) => {
 	ge.pic[name] = new Image();
-	ge.pic[name].src = '../pic/' + filename;
+	ge.pic[name].src = (ext ? '' : '../pic/') + filename;
 };
 
 ge.getpic = (name) => {
