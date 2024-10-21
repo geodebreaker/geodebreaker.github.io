@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta property="og:image" content="https://evrtdg.com/goober.jpg">
+		<meta property="og:title" content="Political Quiz">
+		<meta property="og:description" 
+			content="Find out what party you should vote for with a short quiz!">
+		<title>Political quiz</title>
+		<link rel="icon" href="https://evrtdg.com/goober.jpg">
+		<style>
+			body {
+				margin: 20px;
+				font-size: 20px;
+				font-family: monospace;
+				color: white;
+				background: black;
+			}
+
+			h4 { margin: 0 0 5px 0; }
+
+			button {
+				background: #444;
+				border: 5px outset #666;
+				font-size: 30px;
+				font-family: monospace;
+				color: white;
+				width: 150px;
+				display: block;
+				margin: auto;
+				user-select: none;
+				cursor: pointer;
+			}
+
+			button:active {
+				border-style: inset;
+			}
+
+			h1 { margin: 2px 0; }
+
+			.res { 
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				padding: 10px;
+			}
+
+			#res1 { background: #00f; }
+			#res2 { background: #b0d; }
+			#res3 { background: #f00; }
+		</style>
+	</head>
+	<body>
+		<h1>Political quiz by geodebreaker</h1><br>
+		<div id="test"></div><br>
+		<div id="res1" class="res">
+			<h1>You are a liberal!</h1>
+			You should vote Democrats!
+			(<span class="scorefield"></span> / <span class="scoremax"></span>)
+		</div>
+		<div id="res2" class="res">
+			<h1>You are in the middle!</h1>
+			You can vote however you want!
+			(<span class="scorefield"></span> / <span class="scoremax"></span>)
+		</div>
+		<div id="res3" class="res">
+			<h1>You are a conservative.</h1>
+			You should vote for Republicans.
+			(<span class="scorefield"></span> / <span class="scoremax"></span>)
+		</div>
+		<button onclick="getscore()">Done</button>
+	</body>
+	<script>
+		const q = [
+			{q: "Should the government regulate businesses to ensure fairness and prevent exploitation?", w: 5},
+			{q: "Should the government provide a stronger welfare system (e.g., universal healthcare, food assistance)?", w: 5},
+			{q: "Should there be stricter gun control laws?", w: 4},
+			{q: "Should the government take aggressive action to combat climate change?", w: 5},
+			{q: "Should the wealthy pay higher taxes to fund social programs?", w: 4},
+			{q: "Should healthcare be universal and government-funded?", w: 5},
+			{q: "Should the country have more lenient immigration policies?", w: 4},
+			{q: "Should same-sex couples have the right to marry?", w: 3},
+			{q: "Should abortion be legal and accessible?", w: 5},
+			{q: "Should the government focus more on law and order policies to reduce crime?", w: -4},
+			{q: "Should the minimum wage be increased significantly?", w: 4},
+			{q: "Should the country intervene in foreign conflicts more readily?", w: -4},
+			{q: "Should there be more legal protections for LGBTQ+ individuals (e.g., anti-discrimination laws)?", w: 3},
+			{q: "Should the government impose strict regulations on businesses to protect the environment?", w: 4},
+			{q: "Should religious business owners be allowed to refuse service (e.g., to LGBTQ+ people) based on their beliefs?", w: -3},
+			{q: "Should the death penalty be abolished?", w: 3},
+			{q: "Should affirmative action be used to address racial inequality?", w: 4},
+			{q: "Should marijuana and other drugs be legalized?", w: 3},
+			{q: "Should corporate political donations be more heavily regulated or restricted?", w: 3},
+			{q: "Should public schools receive more federal funding?", w: 4},
+			{q: "Should parents be given vouchers to send their children to private schools?", w: -3},
+			{q: "Should corporate taxes be higher to fund public programs?", w: 4},
+			{q: "Should labor unions be supported and strengthened?", w: 3},
+			{q: "Should colleges protect controversial speakers' right to free speech?", w: -3},
+			{q: "Should the U.S. electoral system be reformed (e.g., eliminating the Electoral College)?", w: 4},
+			{q: "Should transgender individuals have legal rights to change their gender and use facilities matching their gender identity?", w: 3},
+			{q: "Should the government take stronger measures to redistribute wealth (e.g., through taxation or public services)?", w: 4},
+			{q: "Should there be a border wall to reduce illegal immigration?", w: -4},
+			{q: "Should the government enforce mandatory vaccinations to protect public health?", w: 3},
+			{q: "Should there be more government funding for the arts and cultural programs?", w: 2}
+		];
+		getscore = () => {
+			var score = 0;
+			document.querySelectorAll('.q').forEach(x => {
+				var v = document.querySelector(`[name="${x.dataset.i}"]:checked`).value;
+				score += parseInt(x.dataset.w) * parseInt(v);
+			});
+			var total = q.map(x => Math.abs(x.w)).reduce((a, b) => a + b) * 2;
+			document.querySelectorAll('.scorefield').forEach(x => x.innerText = Math.abs(score));
+			document.querySelectorAll('.scoremax').forEach(x => x.innerText = total);
+			var lim = total / 3;
+			document.querySelector('#res' + (score > lim ? 1 : score < -lim ? 3 : 2))
+				.style.display = "block";
+			document.querySelectorAll('input[type="radio"]').forEach(x => x.disabled = true);
+		}
+		q.map((y, i) => {
+			var x = document.createElement('div');
+			x.dataset.i = i;
+			x.dataset.w = y.w;
+			x.classList.add('q');
+			x.innerHTML = `
+<h4>${y.q}</h4>
+<input type="radio" name="${i}" id="${i}0" value="-2"> 
+<label for="${i}0"> Strongly disagree </label> <br>
+<input type="radio" name="${i}" id="${i}1" value="-1"> 
+<label for="${i}1"> Somewhat disagree </label> <br>
+<input type="radio" name="${i}" id="${i}2" value="0" checked> 
+<label for="${i}2"> Not sure </label> <br>
+<input type="radio" name="${i}" id="${i}3" value="1"> 
+<label for="${i}3"> Somewhat agree </label> <br>
+<input type="radio" name="${i}" id="${i}4" value="2"> 
+<label for="${i}4"> Strongly agree </label> <br><br>`;
+			document.querySelector('#test').appendChild(x);
+		});
+	</script>
+</html>
