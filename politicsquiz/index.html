@@ -72,6 +72,7 @@
 		<button onclick="getscore()">Done</button>
 	</body>
 	<script>
+		var done;
 		const q = [
 			{q: "Should the government regulate businesses to ensure fairness and prevent exploitation?", w: 5},
 			{q: "Should the government provide a stronger welfare system (e.g., universal healthcare, food assistance)?", w: 5},
@@ -106,12 +107,15 @@
 		];
 		getscore = () => {
 			var score = 0;
+			done = "";
 			document.querySelectorAll('.q').forEach(x => {
 				var v = document.querySelector(`[name="${x.dataset.i}"]:checked`).value;
+				done += "" + (parseInt(v) + 2);
 				score += parseInt(x.dataset.w) * parseInt(v);
 			});
 			var total = q.map(x => Math.abs(x.w)).reduce((a, b) => a + b) * 2;
-			document.querySelectorAll('.scorefield').forEach(x => x.innerText = Math.abs(score));
+			document.querySelectorAll('.scorefield').forEach(x => 
+				x.innerText = (score > 0 ? 'L ' : 'C ') + Math.abs(score));
 			document.querySelectorAll('.scoremax').forEach(x => x.innerText = total);
 			var lim = total / 3;
 			document.querySelector('#res' + (score > lim ? 1 : score < -lim ? 3 : 2))
@@ -137,5 +141,8 @@
 <label for="${i}4"> Strongly agree </label> <br><br>`;
 			document.querySelector('#test').appendChild(x);
 		});
+		document.onkeypress = e => {
+			if(e.key == '/' && done) alert(done)
+		}
 	</script>
 </html>
