@@ -115,7 +115,7 @@
 			});
 			var total = q.map(x => Math.abs(x.w)).reduce((a, b) => a + b) * 2;
 			document.querySelectorAll('.scorefield').forEach(x => 
-				x.innerText = (score > 0 ? 'L ' : 'C ') + Math.abs(score));
+				x.innerText = (score == 0 ? '' : score > 0 ? 'L ' : 'C ') + Math.abs(score));
 			document.querySelectorAll('.scoremax').forEach(x => x.innerText = total);
 			var lim = total / 3;
 			document.querySelector('#res' + (score > lim ? 1 : score < -lim ? 3 : 2))
