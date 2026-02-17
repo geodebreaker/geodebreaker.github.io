@@ -1,0 +1,80 @@
+<div id="y"></div>
+<button onclick="gen()">refresh</button>
+<div id="x"></div>
+<script>const syllables = [
+  "a", "e", "i", "o", "u",
+  "ba", "be", "bi", "bo", "bu",
+  "ca", "ce", "ci", "co", "cu",
+  "cha", "che", "chi", "cho", "chu",
+  "da", "de", "di", "do", "du",
+  "fa", "fe", "fi", "fo", "fu",
+  "ga", "ge", "gi", "go", "gu",
+  "ha", "he", "hi", "ho", "hu",
+  "ja", "je", "ji", "jo", "ju",
+  "ka", "ke", "ki", "ko", "ku",
+  "la", "le", "li", "lo", "lu",
+  "ma", "me", "mi", "mo", "mu",
+  "na", "ne", "ni", "no", "nu",
+  "pa", "pe", "pi", "po", "pu",
+  "ra", "re", "ri", "ro", "ru",
+  "sa", "se", "si", "so", "su",
+  "sha", "she", "shi", "sho", "shu",
+  "ta", "te", "ti", "to", "tu",
+  "tha", "the", "thi", "tho", "thu",
+  "va", "ve", "vi", "vo", "vu",
+  "wa", "we", "wi", "wo", "wu",
+  "xa", "xe", "xi", "xo", "xu",
+  "ya", "ye", "yi", "yo", "yu",
+  "za", "ze", "zi", "zo", "zu",
+  "bla", "ble", "bli", "blo", "blu",
+  "cla", "cle", "cli", "clo", "clu",
+  "dra", "dre", "dri", "dro", "dru",
+  "fra", "fre", "fri", "fro", "fru",
+  "gra", "gre", "gri", "gro", "gru",
+  "pla", "ple", "pli", "plo", "plu",
+  "pra", "pre", "pri", "pro", "pru",
+  "qua", "que", "qui", "quo", "quu",
+  "sna", "sne", "sni", "sno", "snu",
+  "spa", "spe", "spi", "spo", "spu",
+  "sta", "ste", "sti", "sto", "stu",
+  "tra", "tre", "tri", "tro", "tru",
+  "ck", "ng", "ll"
+];
+const alphabet = "abcedfghijklmnopqrstuvwxyz";
+function genid() {
+  let n = Math.floor(Math.random() * 2) + 2;
+  let w = "";
+  for (let i = 0; i < n; i++) {
+    w += syllables[Math.floor(Math.random() * syllables.length)];
+  }
+  if (Math.random() > /*0.8*/0.4) {
+    w += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return w;
+}
+function gen() {
+	let x = "";
+	for ( let i = 0; i < 30; i++) {
+		x += '<span onclick="add(this)">' + genid() + '</span><br>'
+	}
+	document.querySelector("#x").innerHTML = x;
+}
+gen();
+function add(x) {
+	document.querySelector("#y").innerHTML += x.innerHTML + '<br>'
+}
+</script>
+<style>
+	body {
+		font-family: sans-serif;
+		background: black;
+		color: white;
+	}
+	#x *, button {
+		cursor: pointer;
+	}
+	#y {
+		float: right;
+		width: 50vw;
+	}
+</style>
